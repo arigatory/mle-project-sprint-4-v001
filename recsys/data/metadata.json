@@ -1,0 +1,22 @@
+{
+  "created_at": "2025-09-23T02:53:02.035985",
+  "version": "minimal",
+  "mode": "memory_constrained",
+  "files": {
+    "items.parquet": {
+      "path": "recsys/data/items.parquet",
+      "size_mb": 8.89,
+      "description": "Минимальные данные треков"
+    },
+    "events.parquet": {
+      "path": "recsys/data/events.parquet",
+      "size_mb": 42.0,
+      "description": "Выборка взаимодействий"
+    }
+  },
+  "notes": [
+    "Созданы в режиме ограниченной памяти",
+    "Для полного анализа требуется больше RAM",
+    "Файлы готовы для демонстрации алгоритмов"
+  ]
+}
