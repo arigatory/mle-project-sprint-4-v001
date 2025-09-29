@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Load data on startup"""
     if not load_data():
-        logger.error("Не удалось загрузить данные. Сервис может работать некорректно.")
+        logger.error(
+            "Не удалось загрузить данные. Сервис может работать некорректно.")
     yield
 
 
@@ -252,7 +253,8 @@ def get_content_based_recommendations(
         listened_tracks = set(user_history.recent_tracks)
 
         # Ограничиваем количество треков для анализа (для производительности)
-        sample_tracks = tracks_df.sample(min(10000, len(tracks_df)), random_state=42)
+        sample_tracks = tracks_df.sample(
+            min(10000, len(tracks_df)), random_state=42)
 
         for _, track in sample_tracks.iterrows():
             try:
@@ -266,7 +268,8 @@ def get_content_based_recommendations(
                 if 'artists' in track and pd.notna(track['artists']):
                     try:
                         track_artists = set(str(track['artists']).split(', '))
-                        artist_overlap = len(user_artists.intersection(track_artists))
+                        artist_overlap = len(
+                            user_artists.intersection(track_artists))
                         score += artist_overlap * 2
                     except:
                         pass
@@ -275,7 +278,8 @@ def get_content_based_recommendations(
                 if 'albums' in track and pd.notna(track['albums']):
                     try:
                         track_albums = set(str(track['albums']).split(', '))
-                        album_overlap = len(user_albums.intersection(track_albums))
+                        album_overlap = len(
+                            user_albums.intersection(track_albums))
                         score += album_overlap * 1
                     except:
                         pass
@@ -406,8 +410,6 @@ def mix_recommendations(user_id: int, user_history: UserHistory, n_recommendatio
         return fallback_recs
 
 
-
-
 @app.get("/")
 async def root():
     """Health check endpoint"""
@@ -429,7 +431,8 @@ async def get_recommendations(request: RecommendationRequest):
         )
 
         # Извлекаем стратегию из рекомендаций
-        strategy_used = recommendations[0].get('mixed_strategy', 'unknown') if recommendations else 'empty'
+        strategy_used = recommendations[0].get(
+            'mixed_strategy', 'unknown') if recommendations else 'empty'
 
         return RecommendationResponse(
             user_id=request.user_id,
